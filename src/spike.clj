@@ -56,6 +56,16 @@
         (when rethrow?
           (throw e))))))
 
+(defn periodically-check-channel
+  [queue ch]
+  (future
+    (loop [run? true]
+      (when run?
+        (let [open? (lch/open? ch)]
+          (println queue "channel still open?" open?)
+          (Thread/sleep 250)
+          (recur open?))))))
+
 (defn listen
   [queue rethrow?]
   (println "Creating listener")
@@ -63,6 +73,7 @@
         ch   (doto (lch/open conn)
                (lb/qos 1))]
     (ensure-queue ch queue)
+    (periodically-check-channel queue ch)
     (lc/subscribe ch queue
                   (our-ack-unless-exception
                    rabbitmq-message-handler
