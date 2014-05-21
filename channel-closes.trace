@@ -1,0 +1,106 @@
+user=> (load-file "src/spike.clj")
+
+-------------------
+without-re-throw
+
+Creating listener
+without-re-throw channel still open? true
+Putting messages on queue
+Received Hello 0 Doing nothin'
+Received Hello 1 Doing nothin'
+Received Hello 2 Doing nothin'
+Received Hello 3 Doing nothin'
+Received Hello 4 Doing nothin'
+Received Hello 5 Doing nothin'
+Received Hello 6 Doing nothin'
+Received Hello 7 Doing nothin'
+Received Hello 8 Doing nothin'
+Received Hello 9 Doing nothin'
+Received Hello 10 Doing nothin'
+Received Hello 11 Doing nothin'
+Received Hello 12 Doing nothin'
+Received Hello 13 Doing nothin'
+Received Hello 14 Doing nothin'
+Received Hello 15 Doing nothin'
+Received Hello 16 Doing nothin'
+Received Hello 17 Doing nothin'
+Received Hello 18 Doing nothin'
+Received Hello 19 Doing nothin'
+Received Hello 20 Throwing exception
+Rejected
+Received Hello 20 Doing nothin'
+Received Hello 21 Doing nothin'
+Received Hello 22 Throwing exception
+Rejected
+Received Hello 22 Doing nothin'
+Received Hello 23 Doing nothin'
+Received Hello 24 Doing nothin'
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+without-re-throw channel still open? true
+Stopped consumer
+
+-------------------
+re-throw
+
+without-re-throw channel still open? false
+Creating listener
+re-throw channel still open? true
+Putting messages on queue
+Received Hello 0 Doing nothin'
+Received Hello 1 Doing nothin'
+Received Hello 2 Doing nothin'
+Received Hello 3 Doing nothin'
+Received Hello 4 Doing nothin'
+Received Hello 5 Doing nothin'
+Received Hello 6 Throwing exception
+Rejected
+DefaultExceptionHandler: Consumer langohr.consumers.proxy$com.rabbitmq.client.DefaultConsumer$ff19274a@1aa64d4c (amq.ctag-70h4G5m-AEfDQCm3yZLVDw) method handleDelivery for channel AMQChannel(amqp://guest@127.0.0.1:5672/,1) threw an exception for channel AMQChannel(amqp://guest@127.0.0.1:5672/,1):
+clojure.lang.ExceptionInfo: Dummy exception {:string "Hello 6"}
+	at clojure.core$ex_info.invoke(core.clj:4403)
+	at spike$rabbitmq_message_handler.invoke(spike.clj:44)
+	at spike$our_ack_unless_exception$fn__1833.invoke(spike.clj:51)
+	at langohr.consumers$create_default$fn__1526.invoke(consumers.clj:61)
+	at langohr.consumers.proxy$com.rabbitmq.client.DefaultConsumer$ff19274a.handleDelivery(Unknown Source)
+	at com.rabbitmq.client.impl.ConsumerDispatcher$5.run(ConsumerDispatcher.java:140)
+	at com.rabbitmq.client.impl.ConsumerWorkService$WorkPoolRunnable.run(ConsumerWorkService.java:85)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+Received Hello 6 Doing nothin'
+DefaultExceptionHandler: Consumer langohr.consumers.proxy$com.rabbitmq.client.DefaultConsumer$ff19274a@1aa64d4c (amq.ctag-70h4G5m-AEfDQCm3yZLVDw) method handleDelivery for channel AMQChannel(amqp://guest@127.0.0.1:5672/,1) threw an exception for channel AMQChannel(amqp://guest@127.0.0.1:5672/,1):
+com.rabbitmq.client.AlreadyClosedException: channel is already closed due to clean channel shutdown; protocol method: #method<channel.close>(reply-code=200, reply-text=Closed due to exception from Consumer langohr.consumers.proxy$com.rabbitmq.client.DefaultConsumer$ff19274a@1aa64d4c (amq.ctag-70h4G5m-AEfDQCm3yZLVDw) method handleDelivery for channel AMQChannel(amqp://guest@127.0.0.1:5672/,1), class-id=0, method-id=0)
+	at com.rabbitmq.client.impl.AMQChannel.ensureIsOpen(AMQChannel.java:190)
+	at com.rabbitmq.client.impl.AMQChannel.transmit(AMQChannel.java:291)
+	at com.rabbitmq.client.impl.AMQChannel.transmit(AMQChannel.java:285)
+	at com.rabbitmq.client.impl.ChannelN.basicReject(ChannelN.java:932)
+	at com.novemberain.langohr.Channel.basicReject(Channel.java:1017)
+	at spike$our_ack_unless_exception$fn__1833.invoke(spike.clj:54)
+	at langohr.consumers$create_default$fn__1526.invoke(consumers.clj:61)
+	at langohr.consumers.proxy$com.rabbitmq.client.DefaultConsumer$ff19274a.handleDelivery(Unknown Source)
+	at com.rabbitmq.client.impl.ConsumerDispatcher$5.run(ConsumerDispatcher.java:140)
+	at com.rabbitmq.client.impl.ConsumerWorkService$WorkPoolRunnable.run(ConsumerWorkService.java:85)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+re-throw channel still open? false
+Stopped consumer
+nil
+user=>
